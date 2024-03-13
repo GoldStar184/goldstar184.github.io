@@ -1,3 +1,8 @@
 html {
   background-color: #8f7b29;
 }
+
+body {
+  display: flex;
+  align-items: center;
+}
