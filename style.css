@@ -8,3 +8,11 @@ main {
   width: 60%; 
   background-color: #dcc039;
 }
+
+#editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+}
