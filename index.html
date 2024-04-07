@@ -38,7 +38,16 @@
     <p>Hello world!</p>
     <div id="editor">print("hello world!")
     </div>
-    <script>var editor = ace.edit("editor");</script>
+    <script>var editor = ace.edit("editor");
+    editor.setOptions({
+    highlightActiveLine: true,
+    highlightSelectedWord: true,
+    enableAutoIndent: true,
+    useSoftTabs: true,
+    theme: "ace/theme/github_dark",
+    mode: "ace/mode/python"
+    })
+    </script>
     </section>
     </main>
   </body>
