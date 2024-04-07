@@ -1,2 +1,4 @@
 theme: jekyll-theme-cayman
-include: .well-known
+include: 
+-  .well-known
+-  node_modules/@xterm/xterm
