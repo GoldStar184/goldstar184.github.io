@@ -14,10 +14,9 @@
     <meta name="apple-mobile-web-app-title" content="GS184" />
     <meta name="application-name" content="GS184" />
     <script src="https://cdn.jsdelivr.net/npm/ace-builds/src-min-noconflict/ace.js"></script>
-    <script src="node_modules/@xterm/xterm/lib/xterm.js"></script>
-    <!--
-    <link href="https://cdn.jsdelivr.net/npm/ace-builds/css/ace.min.css" rel="stylesheet" />
-    -->
+    <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
   </head>
   <body>
     <style contenteditable>
@@ -40,18 +39,34 @@
     <h2>About</h2>
     <P> Test 124</P>
     <p>Hello world!</p>
+    <button class="btn" id="btn">Run Python</button>
     <div id="editor">print("hello world!")
     </div>
-    <script>var editor = ace.edit("editor");
-    editor.setOptions({
-    highlightActiveLine: true,
-    highlightSelectedWord: true,
-    enableAutoIndent: true,
-    useSoftTabs: true,
-    theme: "ace/theme/github_dark",
-    mode: "ace/mode/python",
-    maxLines: 100
-    });
+    <div id="shell">
+    </div>
+    <script>
+      var editor = ace.edit("editor");
+      editor.setOptions({
+      highlightActiveLine: true,
+      highlightSelectedWord: true,
+      enableAutoIndent: true,
+      useSoftTabs: true,
+      theme: "ace/theme/github_dark",
+      mode: "ace/mode/python",
+      maxLines: 100
+      });
+  
+      let pyodide = await loadPyodide();
+      
+      var term = new Terminal();
+      term.open(document.getElementById('shell'));
+      
+      pyodide.setStdout({ batched: (msg) => term.write(msg) });
+      pyodide.setStderr({ batched: (msg) => term.write("\\033[31m " + msg + "\\033[0m") });
+      document.getElementById("btn").onclick = function () { pyodide.runPython(editor.getValue()); }; };
+        
+      term.write("loaded!");
+      
     </script>
     </section>
     <section>
